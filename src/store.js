@@ -4,7 +4,9 @@
 class Store {
   constructor(initState = {}) {
     this.state = initState;
+    this.largestCodeNumber = Math.max(...this.state.list.map(item => item.code));
     this.listeners = []; // Слушатели изменений состояния
+    this.state.list.forEach(item => item.selectedCount = 0); // Для каждого элемента добавляем количество выделений
   }
 
   /**
@@ -44,7 +46,11 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list, {
+        code: ++this.largestCodeNumber,
+        title: 'Новая запись',
+        selectedCount: 0
+      }]
     })
   };
 
@@ -60,15 +66,21 @@ class Store {
   };
 
   /**
-   * Выделение записи по коду
+   * Выделение записи и подсчет выделений по коду
    * @param code
    */
   selectItem(code) {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
+        if (item.selected && item.code !== code) {
+          item.selected = false;
+        }
         if (item.code === code) {
           item.selected = !item.selected;
+        }
+        if (item.selected) {
+          item.selectedCount++;
         }
         return item;
       })

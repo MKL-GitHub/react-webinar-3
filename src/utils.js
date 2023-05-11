@@ -26,3 +26,18 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+/**
+ * Функция определяет правильное склонение слова "раз" в зависимости от переданного числа
+ * @param count {Number} Число, для которого нужно определить склонение слова "раз"
+ * @returns {String} Склонение слова "раз" в соответствии с переданным числом
+*/
+export function getPluralCountWord(count) {
+  const numberStr = count.toString();
+  const lastDigit = +numberStr[numberStr.length - 1];
+
+  return lastDigit >= 2 && lastDigit <= 4 &&
+    count !== 12 && count !== 13 && count !== 14
+    ? "раза"
+    : "раз";
+}
