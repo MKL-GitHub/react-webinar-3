@@ -1,0 +1,35 @@
+.CartModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: #000000b3;
+  z-index: 9999;
+}
+
+.CartModal-window {
+  width: 92%;
+  background-color: white;
+  border-radius: 0.625rem;
+  overflow: hidden;
+}
+
+.CartModal-list {
+  margin-top: 4.44rem;
+  margin-bottom: 1rem;
+}
+
+.CartModal-totalPrice {
+  display: flex;
+  gap: 3.31rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  width: fit-content;
+  margin-bottom: 5.56rem;
+  margin-right: 7rem;
+  margin-left: auto;
+}

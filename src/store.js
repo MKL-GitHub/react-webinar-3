@@ -1,4 +1,4 @@
-import {generateCode} from "./utils";
+import { generateCode } from "./utils";
 
 /**
  * Хранилище состояния приложения
@@ -6,6 +6,7 @@ import {generateCode} from "./utils";
 class Store {
   constructor(initState = {}) {
     this.state = initState;
+    this.cartState = { list: [], totalPrice: 0, isOpen: false };
     this.listeners = []; // Слушатели изменений состояния
   }
 
@@ -32,7 +33,7 @@ class Store {
 
   /**
    * Установка состояния
-   * @param newState {Object}
+   * @param newState
    */
   setState(newState) {
     this.state = newState;
@@ -41,12 +42,83 @@ class Store {
   }
 
   /**
+   * Выбор состояния
+   * @returns {Object}
+   */
+  getCartState() {
+    return this.cartState;
+  }
+
+  /**
+   * Установка состояния корзины
+   * @param newCartState 
+   */
+  setCartState(newCartState) {
+    newCartState.list.sort((a, b) => a.code - b.code);
+    this.cartState = newCartState;
+    // Вызываем всех слушателей
+    for (const listener of this.listeners) listener();
+  }
+
+  /**
+   * Добавление товара в корзину
+   * @param code
+   */
+  addItemToCart(code) {
+    const item = this.state.list.find(item => item.code === code);
+    const cartItem = this.cartState.list.find(item => item.code === code);
+    let newCartState = {};
+
+    newCartState.list = cartItem
+      ? [...this.cartState.list.filter(item => item.code !== code),
+      { ...item, quantity: cartItem.quantity + 1 }]
+      : [...this.cartState.list, { ...item, quantity: 1 }];
+
+    newCartState.totalPrice = this.cartState.totalPrice + item.price;
+    newCartState.isOpen = this.cartState.isOpen;
+
+    this.setCartState(newCartState);
+  }
+
+  /**
+   * Удаление товара из корзины
+   * @param code
+   */
+  removeItemFromCart(code) {
+    const cartItem = this.cartState.list.find(item => item.code === code);
+    let newCartState = {};
+
+    newCartState.list = [...this.cartState.list.filter(item => item.code !== code)];
+    if (cartItem.quantity !== 1) {
+      newCartState.list.push({ ...cartItem, quantity: cartItem.quantity - 1 });
+    }
+    newCartState.totalPrice = this.cartState.totalPrice - cartItem.price;
+    newCartState.isOpen = this.cartState.isOpen;
+
+    this.setCartState(newCartState);
+  }
+
+  /**
+   * Открытие корзины
+   */
+  openCartModal() {
+    this.setCartState({ ...this.cartState, isOpen: true });
+  }
+
+  /**
+   * Закрытие корзины
+   */
+  closeCartModal() {
+    this.setCartState({ ...this.cartState, isOpen: false });
+  }
+
+  /**
    * Добавление новой записи
    */
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
+      list: [...this.state.list, { code: generateCode(), title: 'Новая запись' }]
     })
   };
 
@@ -79,7 +151,7 @@ class Store {
           };
         }
         // Сброс выделения если выделена
-        return item.selected ? {...item, selected: false} : item;
+        return item.selected ? { ...item, selected: false } : item;
       })
     })
   }

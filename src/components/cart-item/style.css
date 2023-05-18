@@ -1,0 +1,32 @@
+.CartItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem;
+}
+
+.CartItem_selected {
+  background: #75aaf1;
+  color: #fff;
+}
+
+.CartItem-code {
+  margin-right: 1.25rem;
+}
+
+.CartItem-title {
+  margin-right: auto;
+}
+
+.CartItem-price {
+  margin-right: 3.875rem;
+}
+
+.CartItem-quantity {
+  margin-right: 1.5rem;
+}
+
+.CartItem-actions {
+  display: flex;
+  justify-content: flex-end;
+}

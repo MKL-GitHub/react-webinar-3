@@ -1,7 +1,8 @@
 .Item {
   display: flex;
-  justify-content: flex-start;
-  transition: background-color 1s;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem;
 }
 
 .Item_selected {
@@ -10,16 +11,18 @@
 }
 
 .Item-code {
-  padding: 20px 10px 20px 20px;
+  margin-right: 1.25rem;
 }
 
 .Item-title {
-  width: 100%;
-  padding: 20px 10px;
+  margin-right: auto;
+}
+
+.Item-price {
+  margin-right: 1.5rem;
 }
 
 .Item-actions {
   display: flex;
   justify-content: flex-end;
-  padding: 20px 20px 20px 10px;
 }

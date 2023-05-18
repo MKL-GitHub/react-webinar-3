@@ -3,3 +3,16 @@
   justify-content: flex-end;
   padding: 20px;
 }
+
+.Controls-itemsQuantity {
+  margin-right: 1.5rem;
+}
+
+.Controls-itemsQuantity>span {
+  margin-left: 0.75rem;
+  font-weight: 700;
+}
+
+.Controls-goTo {
+  width: 4.75rem;
+}
