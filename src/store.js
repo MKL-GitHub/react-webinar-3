@@ -42,7 +42,7 @@ class Store {
   }
 
   /**
-   * Выбор состояния
+   * Выбор состояния корзины
    * @returns {Object}
    */
   getCartState() {
