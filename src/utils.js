@@ -1,11 +1,11 @@
 /**
  * Плюрализация
  * Возвращает вариант с учётом правил множественного числа под указанную локаль
- * @param value {Number} Число, под которое выбирается вариант формы.
- * @param variants {Object<String>} Варианты форм множественного числа.
+ * @param {Number} value  Число, под которое выбирается вариант формы.
+ * @param {Object<String>} variants  Варианты форм множественного числа.
+ * @param {String} locale  Локаль (код языка)
  * @example plural(5, {one: 'товар', few: 'товара', many: 'товаров'})
- * @param [locale] {String} Локаль (код языка)
- * @returns {*|string}
+ * @returns {*|String}
  */
 export function plural(value, variants = {}, locale = 'ru-RU') {
   // Получаем фурму кодовой строкой: 'zero', 'one', 'two', 'few', 'many', 'other'
@@ -48,4 +48,13 @@ export const generateCode1 = (function (start = 0) {
  */
 export function generateCode2() {
   return generateCode2.value ? ++generateCode2.value : generateCode2.value = 1;
+}
+
+/**
+ * Форматирует цену с разделителем на три цифры
+ * @param {Number} price 
+ * @returns {String}
+ */
+export function formatPrice(price) {
+  return price.toLocaleString().replace(/,/g, ' ');
 }

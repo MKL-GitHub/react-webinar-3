@@ -34,12 +34,12 @@ Controls.propTypes = {
     ),
     totalPrice: PropTypes.number,
     isOpen: PropTypes.bool,
-  }),
-  onOpenCartModal: PropTypes.func
+  }).isRequired,
+  onOpenCartModal: PropTypes.func.isRequired,
 };
 
 Controls.defaultProps = {
   onOpenCartModal: () => { }
-}
+};
 
 export default React.memo(Controls);

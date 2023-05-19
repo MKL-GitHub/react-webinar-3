@@ -12,7 +12,7 @@ class Store {
 
   /**
    * Подписка слушателя на изменения состояния
-   * @param listener {Function}
+   * @param {Function} listener
    * @returns {Function} Функция отписки
    */
   subscribe(listener) {
@@ -33,7 +33,7 @@ class Store {
 
   /**
    * Установка состояния
-   * @param newState
+   * @param {Object} newState
    */
   setState(newState) {
     this.state = newState;
@@ -51,7 +51,7 @@ class Store {
 
   /**
    * Установка состояния корзины
-   * @param newCartState 
+   * @param {Object} newCartState 
    */
   setCartState(newCartState) {
     newCartState.list.sort((a, b) => a.code - b.code);
@@ -61,13 +61,13 @@ class Store {
   }
 
   /**
-   * Добавление товара в корзину
-   * @param code
+   * Добавление товара в корзину по коду
+   * @param {Number} code
    */
   addItemToCart(code) {
     const item = this.state.list.find(item => item.code === code);
     const cartItem = this.cartState.list.find(item => item.code === code);
-    let newCartState = {};
+    const newCartState = {};
 
     newCartState.list = cartItem
       ? [...this.cartState.list.filter(item => item.code !== code),
@@ -81,18 +81,15 @@ class Store {
   }
 
   /**
-   * Удаление товара из корзины
-   * @param code
+   * Удаление товара из корзины по коду
+   * @param {Number} code
    */
   removeItemFromCart(code) {
     const cartItem = this.cartState.list.find(item => item.code === code);
-    let newCartState = {};
+    const newCartState = {};
 
     newCartState.list = [...this.cartState.list.filter(item => item.code !== code)];
-    if (cartItem.quantity !== 1) {
-      newCartState.list.push({ ...cartItem, quantity: cartItem.quantity - 1 });
-    }
-    newCartState.totalPrice = this.cartState.totalPrice - cartItem.price;
+    newCartState.totalPrice = this.cartState.totalPrice - cartItem.price * cartItem.quantity;
     newCartState.isOpen = this.cartState.isOpen;
 
     this.setCartState(newCartState);
@@ -124,7 +121,7 @@ class Store {
 
   /**
    * Удаление записи по коду
-   * @param code
+   * @param {Number} code
    */
   deleteItem(code) {
     this.setState({
@@ -136,7 +133,7 @@ class Store {
 
   /**
    * Выделение записи по коду
-   * @param code
+   * @param {Number} code
    */
   selectItem(code) {
     this.setState({

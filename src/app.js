@@ -1,10 +1,11 @@
 import React, { useCallback } from 'react';
-import List from "./components/list";
+import ModalLayout from './components/layouts/modal-layout';
+import PageLayout from "./components/layouts/page-layout";
 import Controls from "./components/controls";
 import Head from "./components/head";
-import PageLayout from "./components/page-layout";
-import CartModal from "./components/cart-modal";
+import List from "./components/list";
 import Item from './components/item';
+import Cart from "./components/cart";
 
 /**
  * Приложение
@@ -32,19 +33,26 @@ function App({ store }) {
     onCloseCartModal: useCallback(() => {
       store.closeCartModal();
     }, [store]),
+
+    onRenderItem: useCallback((item) => {
+      return (
+        <Item item={item}
+          onAddItemToCart={callbacks.onAddItemToCart} />
+      )
+    }),
   }
 
   return (
     <PageLayout>
       <Head title='Магазин' />
       <Controls cart={cart} onOpenCartModal={callbacks.onOpenCartModal} />
-      <List list={list} ListItem={Item}
-        onAddItemToCart={callbacks.onAddItemToCart}
-        onSelectItem={callbacks.onSelectItem} />
+      <List list={list} renderItem={callbacks.onRenderItem} />
       {cart.isOpen &&
-        <CartModal list={cart.list} totalPrice={cart.totalPrice}
-          onClose={callbacks.onCloseCartModal}
-          onRemoveItemFromCart={callbacks.onRemoveItemFromCart} />}
+        <ModalLayout>
+          <Cart list={cart.list} totalPrice={cart.totalPrice}
+            onClose={callbacks.onCloseCartModal}
+            onRemoveItemFromCart={callbacks.onRemoveItemFromCart} />
+        </ModalLayout>}
     </PageLayout>
   );
 }

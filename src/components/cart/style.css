@@ -1,0 +1,29 @@
+.Cart-window {
+  width: 60.2rem;
+  background-color: white;
+  border-radius: 0.625rem;
+  overflow: hidden;
+}
+
+.Cart-list {
+  margin-top: 4.44rem;
+  margin-bottom: 1rem;
+}
+
+.Cart-totalPrice {
+  display: flex;
+  justify-content: flex-end;
+  gap: 3.31rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 5.56rem;
+}
+
+.Cart-totalPrice[data-is-empty=false]:last-child {
+  padding-right: 6.9rem;
+}
+
+.Cart-totalPrice[data-is-empty=true] {
+  justify-content: center;
+  font-size: 2rem;
+}
