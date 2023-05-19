@@ -15,7 +15,7 @@ import Cart from "./components/cart";
 function App({ store }) {
 
   const list = store.getState().list;
-  const cart = store.getCartState();
+  const cart = store.getState().cart;
 
   const callbacks = {
     onAddItemToCart: useCallback((code) => {

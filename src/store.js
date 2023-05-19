@@ -5,8 +5,7 @@ import { generateCode } from "./utils";
  */
 class Store {
   constructor(initState = {}) {
-    this.state = initState;
-    this.cartState = { list: [], totalPrice: 0, isOpen: false };
+    this.state = { ...initState, cart: { list: [], totalPrice: 0, isOpen: false } };
     this.listeners = []; // Слушатели изменений состояния
   }
 
@@ -42,42 +41,24 @@ class Store {
   }
 
   /**
-   * Выбор состояния корзины
-   * @returns {Object}
-   */
-  getCartState() {
-    return this.cartState;
-  }
-
-  /**
-   * Установка состояния корзины
-   * @param {Object} newCartState 
-   */
-  setCartState(newCartState) {
-    newCartState.list.sort((a, b) => a.code - b.code);
-    this.cartState = newCartState;
-    // Вызываем всех слушателей
-    for (const listener of this.listeners) listener();
-  }
-
-  /**
    * Добавление товара в корзину по коду
    * @param {Number} code
    */
   addItemToCart(code) {
+    const cart = this.state.cart;
     const item = this.state.list.find(item => item.code === code);
-    const cartItem = this.cartState.list.find(item => item.code === code);
+    const cartItem = cart.list.find(item => item.code === code);
     const newCartState = {};
 
     newCartState.list = cartItem
-      ? [...this.cartState.list.filter(item => item.code !== code),
+      ? [...cart.list.filter(item => item.code !== code),
       { ...item, quantity: cartItem.quantity + 1 }]
-      : [...this.cartState.list, { ...item, quantity: 1 }];
+      : [...cart.list, { ...item, quantity: 1 }];
 
-    newCartState.totalPrice = this.cartState.totalPrice + item.price;
-    newCartState.isOpen = this.cartState.isOpen;
+    newCartState.totalPrice = cart.totalPrice + item.price;
+    newCartState.isOpen = cart.isOpen;
 
-    this.setCartState(newCartState);
+    this.setState({ ...this.state, cart: newCartState });
   }
 
   /**
@@ -85,28 +66,29 @@ class Store {
    * @param {Number} code
    */
   removeItemFromCart(code) {
-    const cartItem = this.cartState.list.find(item => item.code === code);
+    const cart = this.state.cart;
+    const cartItem = cart.list.find(item => item.code === code);
     const newCartState = {};
 
-    newCartState.list = [...this.cartState.list.filter(item => item.code !== code)];
-    newCartState.totalPrice = this.cartState.totalPrice - cartItem.price * cartItem.quantity;
-    newCartState.isOpen = this.cartState.isOpen;
+    newCartState.list = [...cart.list.filter(item => item.code !== code)];
+    newCartState.totalPrice = cart.totalPrice - cartItem.price * cartItem.quantity;
+    newCartState.isOpen = cart.isOpen;
 
-    this.setCartState(newCartState);
+    this.setState({ ...this.state, cart: newCartState });
   }
 
   /**
    * Открытие корзины
    */
   openCartModal() {
-    this.setCartState({ ...this.cartState, isOpen: true });
+    this.setState({ ...this.state, cart: { ...this.state.cart, isOpen: true } });
   }
 
   /**
    * Закрытие корзины
    */
   closeCartModal() {
-    this.setCartState({ ...this.cartState, isOpen: false });
+    this.setState({ ...this.state, cart: { ...this.state.cart, isOpen: false } });
   }
 
   /**
