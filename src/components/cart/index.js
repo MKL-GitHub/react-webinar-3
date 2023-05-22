@@ -21,8 +21,8 @@ function Cart({ list, totalPrice, onClose, onRemoveItemFromCart }) {
       <div className='Cart-list'>
         <List list={list} renderItem={callbacks.onRenderItem} />
       </div>
-      <div className='Cart-totalPrice' data-is-empty={!totalPrice}>
-        {totalPrice
+      <div className='Cart-totalPrice' data-is-empty={!list.length}>
+        {list.length
           ? <>
             <span>Итого</span>
             <span>{`${formatPrice(totalPrice)} ₽`}</span>
