@@ -1,0 +1,26 @@
+.ItemInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: 1.25rem 2.5rem;
+}
+
+.ItemInfo-description,
+.ItemInfo-param {
+  font-size: 1.125rem;
+}
+
+.ItemInfo-paramValue {
+  font-weight: 700;
+}
+
+.ItemInfo-price {
+  display: flex;
+  gap: 1rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.ItemInfo-addButton {
+  width: fit-content;
+}

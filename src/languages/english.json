@@ -1,0 +1,21 @@
+{
+  "words": {
+    "Shop": "Shop",
+    "Home": "Home",
+    "In the basket": "In the basket",
+    "empty": "empty",
+    "Go": "Go",
+    "Add": "Add",
+    "Remove": "Remove",
+    "Basket": "Basket",
+    "Total": "Total",
+    "Close": "Close"
+  },
+  "countableWords": {
+    "item": {
+      "one": "item",
+      "few": "items",
+      "many": "items"
+    }
+  }
+}

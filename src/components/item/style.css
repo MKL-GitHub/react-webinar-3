@@ -1,8 +1,9 @@
 .Item {
   display: flex;
   justify-content: flex-start;
+  align-items: center;
   transition: background-color 1s;
-  padding-left: 10px
+  padding-left: 1.25rem;
 }
 
 .Item_selected {
@@ -15,8 +16,14 @@
 }
 
 .Item-title {
-  width: 100%;
-  padding: 20px 10px;
+  cursor: pointer;
+  margin-right: auto;
+  text-decoration: none;
+  color: black;
+}
+
+.Item-title:hover {
+  text-decoration: underline;
 }
 
 .Item-actions {

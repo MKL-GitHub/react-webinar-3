@@ -4,15 +4,9 @@ import * as modules from './exports.js';
  * Хранилище состояния приложения
  */
 class Store {
-
   constructor(initState = {}) {
     this.listeners = []; // Слушатели изменений состояния
     this.state = initState;
-    /** @type {{
-     * basket: Basket,
-     * catalog: Catalog,
-     * modals: Modals
-     * }} */
     this.actions = {};
     for (const name of Object.keys(modules)) {
       this.actions[name] = new modules[name](this, name);

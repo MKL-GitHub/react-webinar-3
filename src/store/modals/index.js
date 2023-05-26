@@ -1,19 +1,25 @@
 import StoreModule from "../module";
 
 class Modals extends StoreModule {
-
   initState() {
     return {
       name: null
     }
   }
 
-  open(name){
-    this.setState({name}, `Открытие модалки ${name}`);
+  /**
+   * Открывает модальное окно по имени
+   * @param {String} name Название модального окна
+   */
+  open(name) {
+    this.setState({ name }, `Открытие модалки ${name}`);
   }
 
-  close(){
-    this.setState({name: null}, `Закрытие модалки`);
+  /**
+   * Закрывает модальное окно
+   */
+  close() {
+    this.setState({ name: null }, `Закрытие модалки`);
   }
 }
 
