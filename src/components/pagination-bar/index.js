@@ -1,36 +1,31 @@
 import React, { memo } from 'react';
-import PropTypes from 'prop-types';
+import PropTypes, { func } from 'prop-types';
 import './style.css';
 
 function PaginationBar({ currentPage, totalPages, onPageClick }) {
-  const buttons = [currentPage];
-  fillButtons();
+  const buttons = [
+    ...getButtonsBeforeCurrentPage(),
+    currentPage,
+    ...getButtonsAfterCurrentPage(),
+  ];
 
-  function fillButtons() {
-    if (currentPage - 2 > 1) {
-      if (currentPage === totalPages) {
-        buttons.unshift(buttons[0] - 1);
-      }
-      buttons.unshift(buttons[0] - 1);
-      buttons.unshift('...');
-      buttons.unshift(1);
-    } else {
-      while (buttons[0] !== 1) {
-        buttons.unshift(buttons[0] - 1);
-      }
+  function getButtonsBeforeCurrentPage() {
+    switch (currentPage) {
+      case totalPages: return [1, '...', totalPages - 2, totalPages - 1];
+      case 2: return [1];
+      case 3: return [1, 2];
+      default: return currentPage > 3
+        ? [1, '...', currentPage - 1] : [];
     }
+  }
 
-    if (currentPage + 2 < totalPages) {
-      if (currentPage === 1) {
-        buttons.push(buttons[buttons.length - 1] + 1);
-      }
-      buttons.push(buttons[buttons.length - 1] + 1);
-      buttons.push('...');
-      buttons.push(totalPages);
-    } else {
-      while (buttons[buttons.length - 1] !== totalPages) {
-        buttons.push(buttons[buttons.length - 1] + 1);
-      }
+  function getButtonsAfterCurrentPage() {
+    switch (currentPage) {
+      case 1: return [2, 3, '...', totalPages];
+      case totalPages - 1: return [totalPages];
+      case totalPages - 2: return [totalPages - 1, totalPages];
+      default: return currentPage < totalPages - 2
+        ? [currentPage + 1, '...', totalPages] : [];
     }
   }
 
