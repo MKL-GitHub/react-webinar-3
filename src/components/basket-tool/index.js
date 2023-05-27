@@ -16,11 +16,7 @@ function BasketTool({ sum, amount, onOpen, translate }) {
       <span className={cn('label')}>{translate('In the basket')}:</span>
       <span className={cn('total')}>
         {amount
-          ? `${amount} ${plural(amount, {
-            one: translate('item', 'one'),
-            few: translate('item', 'few'),
-            many: translate('item', 'many'),
-          })} / ${numberFormat(sum)} ₽`
+          ? `${amount} ${plural(amount, translate('item', true))} / ${numberFormat(sum)} ₽`
           : translate('empty')
         }
       </span>

@@ -24,11 +24,15 @@ class Interpreter extends StoreModule {
    * @param {String} key Слово на английском языке для перевода
    * @returns {String} Перевод слова
    */
-  translate(key, countKey) {
+  translate(key, isCountable = false) {
     const { lang } = this.getState();
-    return countKey
-      ? languages[lang].countableWords[key][countKey]
+    const word = isCountable
+      ? languages[lang].countableWords[key]
       : languages[lang].words[key];
+
+    return word ? word : isCountable
+      ? languages['english'].countableWords[key]
+      : languages['english'].words[key];
   }
 }
 
