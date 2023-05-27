@@ -41,10 +41,8 @@ function PaginationBar({ currentPage, totalPages, onPageClick }) {
         <button key={index}
           className={'PaginationBar-button' + (currentPage === value
             ? ' PaginationBar-button_current' : value === '...'
-              ? ' PaginationBar-button_points' : '')
-          }
-          onClick={() => handleOnPageClick(value)}
-        >
+              ? ' PaginationBar-button_points' : '')}
+          onClick={() => handleOnPageClick(value)}>
           {value}
         </button>
       )}
