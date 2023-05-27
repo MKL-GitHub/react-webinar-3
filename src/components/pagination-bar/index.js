@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import PropTypes, { func } from 'prop-types';
+import PropTypes from 'prop-types';
 import './style.css';
 
 function PaginationBar({ currentPage, totalPages, onPageClick }) {
