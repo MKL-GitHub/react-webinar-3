@@ -30,7 +30,7 @@ function Main() {
 
   const callbacks = {
     // Добавление в корзину
-    addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
+    addToBasket: useCallback(_id => store.actions.basket.addToBasketById(_id), [store]),
     // Открытие модалки корзины
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
     // Открытие страницы с товаром по id
@@ -45,7 +45,8 @@ function Main() {
 
   const renders = {
     item: useCallback((item) => {
-      return <Item item={item} onAdd={callbacks.addToBasket} translate={translate} />
+      return <Item item={item} onAdd={callbacks.addToBasket}
+        linkPath={`catalog/${item._id}`} translate={translate} />
     }, [callbacks.addToBasket, store.state.interpreter.lang]),
   };
 

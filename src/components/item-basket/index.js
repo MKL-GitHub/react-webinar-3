@@ -14,8 +14,7 @@ function ItemBasket(props) {
 
   return (
     <div className={cn()}>
-      <Link to={`catalog/${props.item._id}`} className={cn('title')}
-        onClick={props.onCloseModal}>
+      <Link to={props.linkPath} className={cn('title')} onClick={props.onCloseModal}>
         {props.item.title}
       </Link>
       <div className={cn('right')}>
@@ -39,6 +38,7 @@ ItemBasket.propTypes = {
   onRemove: PropTypes.func,
   onCloseModal: PropTypes.func,
   translate: PropTypes.func.isRequired,
+  linkPath: PropTypes.string,
 }
 
 ItemBasket.defaultProps = {

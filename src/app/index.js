@@ -1,7 +1,8 @@
 import Basket from "./basket";
 import useSelector from "../store/use-selector";
-import { BrowserRouter } from "react-router-dom";
-import Router from "../components/router";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Main from "./main";
+import CatalogItem from "./catalog-item";
 
 /**
  * Приложение
@@ -12,7 +13,10 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Router />
+      <Routes>
+        <Route path='/' Component={Main} />
+        <Route path='catalog/:id' Component={CatalogItem} />
+      </Routes>
       {activeModal === 'basket' && <Basket />}
     </BrowserRouter>
   );

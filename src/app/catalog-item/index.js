@@ -9,13 +9,13 @@ import ItemInfo from '../../components/item-info';
 
 
 function CatalogItem() {
-  const [state, setState] = useState(null);
+  const [item, setItem] = useState(null);
   const { id } = useParams();
   const store = useStore();
 
   useEffect(() => {
     (async () => {
-      setState(await store.actions.catalog.loadItemById(id))
+      setItem(await store.actions.catalog.loadItemById(id))
     })();
   }, [id]);
 
@@ -28,7 +28,7 @@ function CatalogItem() {
 
   const callbacks = {
     // Добавление в корзину
-    addToBasket: useCallback(() => store.actions.basket.addToBasket(id), [store, id]),
+    addToBasket: useCallback(() => store.actions.basket.addToBasket(item), [store, item]),
     // Открытие модалки корзины
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
     // Переключение языка
@@ -43,17 +43,17 @@ function CatalogItem() {
 
   return (
     <PageLayout>
-      <Head title={state?.title} lang={select.lang}
+      <Head title={item?.title} lang={select.lang}
         languages={select.languages} onSwitchLanguage={callbacks.onSwitchLanguage} />
       <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
         sum={select.sum} translate={translate} />
-      {state && <ItemInfo
-        description={state.description}
-        country={state.madeIn.title}
-        countryCode={state.madeIn.code}
-        category={state.category.title}
-        editionYear={state.edition}
-        price={state.price}
+      {item && <ItemInfo
+        description={item.description}
+        country={item.madeIn.title}
+        countryCode={item.madeIn.code}
+        category={item.category.title}
+        editionYear={item.edition}
+        price={item.price}
         onAdd={callbacks.addToBasket}
         translate={translate}
       />}

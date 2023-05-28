@@ -10,37 +10,69 @@ class Basket extends StoreModule {
   }
 
   /**
-   * Добавление товара в корзину
-   * @param _id Код товара
+   * Получение товара из корзины по ID 
+   * @param {String} _id Идентификатор товара
+   * @param {Object} state Объект для хранения свойств sum и isExist
+   * @returns {Array<Object>} Список товаров
    */
-  addToBasket(_id) {
-    let sum = 0;
-    // Ищем товар в корзине, чтобы увеличить его количество
-    let exist = false;
+  getItemFromBasketById(_id, state) {
     const list = this.getState().list.map(item => {
       let result = item;
       if (item._id === _id) {
-        exist = true; // Запомним, что был найден в корзине
+        state.isExist = true; // Запомним, что был найден в корзине
         result = { ...item, amount: item.amount + 1 };
       }
-      sum += result.price * result.amount;
+      state.sum += result.price * result.amount;
       return result;
     });
+    return list;
+  }
 
-    if (!exist) {
+  /**
+   * Добавление товара в корзину
+   * @param _id Код товара
+   */
+  addToBasketById(_id) {
+    const state = { sum: 0, isExist: false };
+    // Ищем товар в корзине, чтобы увеличить его количество
+    const list = this.getItemFromBasketById(_id, state);
+
+    if (!state.isExist) {
       // Поиск товара в каталоге, чтобы его добавить в корзину.
       // @todo В реальном приложении будет запрос к АПИ вместо поиска по состоянию.
       const item = this.store.getState().catalog.list.find(item => item._id === _id);
       list.push({ ...item, amount: 1 }); // list уже новый, в него можно пушить.
       // Добавляем к сумме.
-      sum += item.price;
+      state.sum += item.price;
     }
 
     this.setState({
       ...this.getState(),
       list,
-      sum,
+      sum: state.sum,
       amount: list.length
+    }, 'Добавление в корзину');
+  }
+
+  /**
+   * Добавление товара в корзину
+   * @param {Object} newItem Объект товара
+   */
+  addToBasket(newItem) {
+    const state = { sum: 0, isExist: false };
+    // Ищем товар в корзине, чтобы увеличить его количество
+    const list = this.getItemFromBasketById(newItem._id, state);
+
+    if (!state.isExist) {
+      list.push({ ...newItem, amount: 1 }); // list уже новый, в него можно пушить.
+      state.sum += newItem.price; // Добавляем к сумме.
+    }
+
+    this.setState({
+      ...this.getState(),
+      list,
+      sum: state.sum,
+      amount: list.length,
     }, 'Добавление в корзину');
   }
 
