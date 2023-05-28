@@ -26,8 +26,7 @@ function Basket() {
     itemBasket: useCallback((item) => {
       return (
         <ItemBasket item={item} linkPath={`catalog/${item._id}`} translate={translate}
-          onRemove={callbacks.removeFromBasket}
-          onCloseModal={callbacks.closeModal} />
+          onRemove={callbacks.removeFromBasket} onCloseModal={callbacks.closeModal} />
       )
     }, [callbacks.removeFromBasket]),
   };
