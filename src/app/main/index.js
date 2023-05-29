@@ -1,6 +1,5 @@
 import { memo, useCallback, useEffect, useState } from 'react';
 import Item from "../../components/item";
-import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
 import BasketTool from "../../components/basket-tool";
 import List from "../../components/list";
@@ -8,7 +7,8 @@ import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import PaginationBar from '../../components/pagination-bar';
 import NavigationBar from '../../components/navigation-bar';
-import SpaceBetweenContainer from '../../components/space-between-container';
+import SpaceBetweenLayout from '../../components/layouts/space-between-layout';
+import PageLayout from '../../components/layouts/page-layout';
 
 const LIMIT = 10; // Максимальное количество товаров на странице
 
@@ -60,11 +60,11 @@ function Main() {
     <PageLayout>
       <Head title={translate('Shop')}
         lang={select.lang} languages={select.languages} onSwitchLanguage={callbacks.onSwitchLanguage} />
-      <SpaceBetweenContainer>
+      <SpaceBetweenLayout>
         <NavigationBar translate={translate} />
         <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
           sum={select.sum} translate={translate} />
-      </SpaceBetweenContainer>
+      </SpaceBetweenLayout>
       <List list={select.list} renderItem={renders.item} />
       {select.totalItems &&
         <PaginationBar currentPage={select.currentPage}

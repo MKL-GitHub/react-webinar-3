@@ -1,13 +1,13 @@
 import { memo, useCallback, useEffect, useState } from 'react';
-import PageLayout from "../../components/page-layout";
+import PageLayout from '../../components/layouts/page-layout';
 import Head from "../../components/head";
 import BasketTool from "../../components/basket-tool";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import { useParams } from 'react-router-dom';
 import ItemInfo from '../../components/item-info';
-import SpaceBetweenContainer from '../../components/space-between-container';
 import NavigationBar from '../../components/navigation-bar';
+import SpaceBetweenLayout from '../../components/layouts/space-between-layout';
 
 
 function CatalogItem() {
@@ -47,11 +47,11 @@ function CatalogItem() {
     <PageLayout>
       <Head title={item?.title} lang={select.lang}
         languages={select.languages} onSwitchLanguage={callbacks.onSwitchLanguage} />
-      <SpaceBetweenContainer>
+      <SpaceBetweenLayout>
         <NavigationBar translate={translate} />
         <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
           sum={select.sum} translate={translate} />
-      </SpaceBetweenContainer>
+      </SpaceBetweenLayout>
       {item && <ItemInfo
         description={item.description}
         country={item.madeIn.title}
