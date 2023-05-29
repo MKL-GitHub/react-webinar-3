@@ -9,6 +9,7 @@ import PaginationBar from '../../components/pagination-bar';
 import NavigationBar from '../../components/navigation-bar';
 import SpaceBetweenLayout from '../../components/layouts/space-between-layout';
 import PageLayout from '../../components/layouts/page-layout';
+import Spinner from '../../components/spinner';
 
 const LIMIT = 10; // Максимальное количество товаров на странице
 
@@ -65,8 +66,10 @@ function Main() {
         <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
           sum={select.sum} translate={translate} />
       </SpaceBetweenLayout>
-      <List list={select.list} renderItem={renders.item} />
-      {select.totalItems &&
+      {select.list.length
+        ? <List list={select.list} renderItem={renders.item} />
+        : <Spinner />}
+      {!!select.totalItems &&
         <PaginationBar currentPage={select.currentPage}
           totalPages={Math.ceil(select.totalItems / LIMIT)}
           onPageClick={callbacks.openPage} />}

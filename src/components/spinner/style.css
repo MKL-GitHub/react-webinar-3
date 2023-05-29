@@ -1,0 +1,42 @@
+.Spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 5rem;
+}
+
+.Spinner>div {
+  position: relative;
+  width: 2.4rem;
+  height: 2.4rem;
+  animation: spin 1s linear infinite;
+}
+
+.Spinner>div::before,
+.Spinner>div::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(50% - 0.4rem);
+  height: calc(100% - 0.4rem);
+  border: 0.2rem solid #00000034;
+  border-top-color: #8888d4;
+  border-bottom-color: #8888d4;
+  border-radius: 50%;
+}
+
+.Spinner>div::after {
+  transform: translateX(-50%) rotate(90deg);
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}

@@ -8,6 +8,7 @@ import { useParams } from 'react-router-dom';
 import ItemInfo from '../../components/item-info';
 import NavigationBar from '../../components/navigation-bar';
 import SpaceBetweenLayout from '../../components/layouts/space-between-layout';
+import Spinner from '../../components/spinner';
 
 
 function CatalogItem() {
@@ -52,16 +53,18 @@ function CatalogItem() {
         <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
           sum={select.sum} translate={translate} />
       </SpaceBetweenLayout>
-      {item && <ItemInfo
-        description={item.description}
-        country={item.madeIn.title}
-        countryCode={item.madeIn.code}
-        category={item.category.title}
-        editionYear={item.edition}
-        price={item.price}
-        onAdd={callbacks.addToBasket}
-        translate={translate}
-      />}
+      {item
+        ? <ItemInfo
+          description={item.description}
+          country={item.madeIn.title}
+          countryCode={item.madeIn.code}
+          category={item.category.title}
+          editionYear={item.edition}
+          price={item.price}
+          onAdd={callbacks.addToBasket}
+          translate={translate}
+        />
+        : <Spinner />}
     </PageLayout>
   );
 }
