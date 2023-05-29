@@ -6,6 +6,8 @@ import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import { useParams } from 'react-router-dom';
 import ItemInfo from '../../components/item-info';
+import SpaceBetweenContainer from '../../components/space-between-container';
+import NavigationBar from '../../components/navigation-bar';
 
 
 function CatalogItem() {
@@ -45,8 +47,11 @@ function CatalogItem() {
     <PageLayout>
       <Head title={item?.title} lang={select.lang}
         languages={select.languages} onSwitchLanguage={callbacks.onSwitchLanguage} />
-      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
-        sum={select.sum} translate={translate} />
+      <SpaceBetweenContainer>
+        <NavigationBar translate={translate} />
+        <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
+          sum={select.sum} translate={translate} />
+      </SpaceBetweenContainer>
       {item && <ItemInfo
         description={item.description}
         country={item.madeIn.title}
