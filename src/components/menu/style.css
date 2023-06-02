@@ -22,3 +22,7 @@
   margin-right: 0;
   padding-right: 0;
 }
+
+.Menu-item>a {
+  color: #0087E9;
+}

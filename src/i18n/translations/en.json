@@ -11,6 +11,15 @@
   "basket.delete": "Delete",
   "article.add": "Add",
   "filter.reset": "Reset",
+  "login": "Login",
+  "logout": "Logout",
+  "submit.login": "Login",
+  "form.password": "Password",
+  "form.login": "Login",
+  "profile": "Profile",
+  "profile.name": "Name",
+  "profile.phone": "Phone",
+  "profile.email": "email",
   "basket.articles": {
     "one": "article",
     "other": "articles"

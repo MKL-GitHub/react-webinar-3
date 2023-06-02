@@ -33,3 +33,27 @@ export function codeGenerator(start = 0) {
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+/**
+ * Получение отсортированного списка опций со вложенностью
+ * @param {Array<Object>} items Список опций для компонента select
+ * @returns {Array<Object>} Отсортированный список со вложенностью
+ */
+export function getHierarchicalOptions(items) {
+  const result = [];
+  items.forEach(item => !item.parent && setChildren(item));
+
+  return result;
+
+  function setChildren(item) {
+    const children = items.filter(({ parent }) => parent?._id === item._id);
+    result.push({ value: item._id, title: item.title });
+
+    children.forEach(child => {
+      child.dashes = item.dashes ? item.dashes + '-' : '-';
+      child.title = child.dashes + child.title;
+      setChildren(child)
+      delete child.dashes;
+    });
+  }
+}

@@ -1,0 +1,39 @@
+.UserPanel {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  height: 2.56rem;
+  border-bottom: 1px solid #DCDCDC;
+  padding: 0 1.25rem;
+}
+
+.UserPanel>ul {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.UserPanel-loginLink {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.1rem 0.46rem;
+  text-decoration: none;
+  border: 1px solid #767676;
+  border-radius: 0.125rem;
+  color: black;
+  font-size: 0.83rem;
+  background-color: #f0f0f0;
+}
+
+.UserPanel-loginLink:hover {
+  background-color: #e5e5e5;
+  border-color: #4f4f4f;
+}
+
+.UserPanel-profileLink {
+  color: #0087E9;
+}

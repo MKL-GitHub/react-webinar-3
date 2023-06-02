@@ -1,0 +1,28 @@
+.ProfileCard {
+  margin: 2.19rem 0;
+  padding: 0 1.25rem;
+}
+
+.ProfileCard-title {
+  line-height: 1.75rem;
+  margin-bottom: 1.875rem;
+}
+
+.ProfileCard-profileInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  font-size: 1.125rem;
+}
+
+.ProfileCard-profileInfo>li {
+  display: flex;
+  gap: 0.2rem;
+}
+
+.ProfileCard-value {
+  font-weight: 700;
+}
