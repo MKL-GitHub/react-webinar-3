@@ -101,7 +101,7 @@ class ProfileState extends StoreModule {
 
   /**
    * Установка ошибки полученной от сервера при регистрации
-   * @param {String} loginMistake Описание ошибки
+   * @param {String} loginMistake Текст ошибки
    */
   setMistake(loginMistake) {
     this.setState({ ...this.getState(), loginMistake });

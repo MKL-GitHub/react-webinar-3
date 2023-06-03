@@ -1,6 +1,5 @@
 import { memo, useCallback } from "react";
 import PageLayout from "../../components/page-layout";
-import UserPanel from "../../components/user-panel";
 import Head from "../../components/head";
 import LocaleSelect from "../../containers/locale-select";
 import useTranslate from "../../hooks/use-translate";
