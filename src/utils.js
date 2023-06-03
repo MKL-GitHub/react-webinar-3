@@ -50,7 +50,7 @@ export function getHierarchicalOptions(items) {
     result.push({ value: item._id, title: item.title });
 
     children.forEach(child => {
-      child.dashes = item.dashes ? item.dashes + '-' : '-';
+      child.dashes = item.dashes ? item.dashes + '- ' : '- ';
       child.title = child.dashes + child.title;
       setChildren(child)
       delete child.dashes;
