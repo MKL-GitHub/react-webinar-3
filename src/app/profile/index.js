@@ -7,12 +7,14 @@ import LocaleSelect from "../../containers/locale-select";
 import Navigation from "../../containers/navigation";
 import ProfileCard from "../../components/profile-card";
 import UserPanelContainer from "../../containers/user-panel-container";
+import Spinner from "../../components/spinner";
 
 function Profile() {
   const select = useSelector(state => ({
-    name: state.profile.name,
-    phone: state.profile.phone,
-    email: state.profile.email,
+    waiting: state.profile.waiting,
+    name: state.profile.data.name,
+    phone: state.profile.data.phone,
+    email: state.profile.data.email,
   }));
 
   const { t } = useTranslate();
@@ -24,7 +26,9 @@ function Profile() {
         <LocaleSelect />
       </Head>
       <Navigation />
-      <ProfileCard name={select.name} phone={select.phone} email={select.email} t={t} />
+      <Spinner active={select.waiting}>
+        <ProfileCard name={select.name} phone={select.phone} email={select.email} t={t} />
+      </Spinner>
     </PageLayout>
   );
 }

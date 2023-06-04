@@ -35,6 +35,7 @@ class AuthState extends StoreModule {
         token: json.result.token,
       })
       localStorage.setItem('token', json.result.token);
+      localStorage.setItem('userId', json.result.user._id);
       return json.result.user;
     }
 
@@ -56,25 +57,8 @@ class AuthState extends StoreModule {
     })
     if (response.ok) {
       localStorage.removeItem('token');
+      localStorage.removeItem('userId');
       this.setState(this.initState());
-    }
-  }
-
-  /**
-   * Загрузка профиля через токен для авторизованного пользователя
-   */
-  async loadProfile() {
-    const response = await fetch(`/api/v1/users/self`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Token': this.getState().token,
-      },
-    });
-
-    if (response.ok) {
-      const { result } = await response.json();
-      return result;
     }
   }
 

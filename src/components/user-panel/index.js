@@ -11,7 +11,7 @@ function UserPanel(props) {
           {props.username}
         </Link></li>
         <li><Link to={props.loginLink} className='UserPanel-loginLink' onClick={props.onLogout}>
-          {props.isAuthorized ? props.t('logout') : props.t('login')}
+          {props.isAuth ? props.t('logout') : props.t('login')}
         </Link></li>
       </ul>
     </nav>
@@ -22,7 +22,7 @@ UserPanel.propTypes = {
   loginLink: PropTypes.string,
   profileLink: PropTypes.string,
   username: PropTypes.string,
-  isAuthorized: PropTypes.bool,
+  isAuth: PropTypes.bool,
   onLogout: PropTypes.func,
   t: PropTypes.func,
 }

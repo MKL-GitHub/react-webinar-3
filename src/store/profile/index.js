@@ -6,9 +6,47 @@ import StoreModule from '../module';
 class ProfileState extends StoreModule {
   initState() {
     return {
-      name: '',
-      phone: '',
-      email: '',
+      data: {
+        _id: localStorage.getItem('userId'),
+      },
+      waiting: false,
+    }
+  }
+
+  /**
+   * Загрузка профиля через токен для авторизованного пользователя
+   */
+  async load() {
+    // Сброс текущего товара и установка признака ожидания загрузки
+    this.setState({
+      ...this.initState(),
+      waiting: true
+    });
+
+    try {
+      const response = await fetch(`/api/v1/users/${this.getState().data._id}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Token': localStorage.getItem('token'),
+        },
+      });
+
+      if (response.ok) {
+        const { result } = await response.json();
+        this.setState({
+          ...this.getState(),
+          waiting: false,
+          data: {
+            ...this.getState().data,
+            name: result.profile.name,
+            phone: result.profile.phone,
+            email: result.email,
+          }
+        });
+      }
+    } catch (error) {
+      this.setState(this.initState());
     }
   }
 
@@ -16,15 +54,24 @@ class ProfileState extends StoreModule {
    * Сброс состояния профиля
    */
   resetState() {
-    this.setState(this.initState());
+    this.setState({
+      data: {},
+      waiting: false
+    });
   }
 
   /**
    * Установка нового состояния профиля
-   * @param {Object} newState Новое состояние 
+   * @param {Object} newData Новое состояние 
    */
-  setProfilePageState(newState) {
-    this.setState({ ...this.getState(), ...newState });
+  setProfileData(newData) {
+    this.setState({
+      ...this.getState(),
+      data: {
+        ...this.getState().data,
+        ...newData,
+      }
+    });
   }
 }
 

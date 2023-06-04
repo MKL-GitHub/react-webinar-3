@@ -28,7 +28,8 @@ function Login() {
 
       if (user) {
         navigate(-1); // Возвращаемся на предыдущую страницу, если авторизация прошла успешно
-        store.actions.profile.setProfilePageState({
+        store.actions.profile.setProfileData({
+          _id: user._id,
           name: user.profile.name,
           phone: user.profile.phone,
           email: user.email,
