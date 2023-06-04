@@ -14,6 +14,7 @@ class Store {
      * modals: ModalsState,
      * article: ArticleState,
      * locale: LocaleState,
+     * auth: AuthState,
      * profile: AccauntState,
      * categories: CategoriesState,
      * }} */

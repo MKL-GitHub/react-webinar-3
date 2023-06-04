@@ -15,19 +15,26 @@ function Login() {
   const navigate = useNavigate();
 
   const select = useSelector(state => ({
-    loginMistake: state.profile.loginMistake,
+    mistake: state.auth.mistake,
   }));
 
   const callbacks = {
     // Отправка запроса авторизации
     onLogin: useCallback(async (event) => {
-      const ok = await store.actions.profile.login(
+      const user = await store.actions.auth.login(
         event.target.elements.login.value,
         event.target.elements.password.value,
       );
-      // Возвращаемся на предыдущую страницу, если авторизация прошла успешно
-      ok && navigate(-1);
-    }, [store, select.loginMistake]),
+
+      if (user) {
+        navigate(-1); // Возвращаемся на предыдущую страницу, если авторизация прошла успешно
+        store.actions.profile.setProfilePageState({
+          name: user.profile.name,
+          phone: user.profile.phone,
+          email: user.email,
+        });
+      }
+    }, [store, select.mistake]),
   }
 
   const { t } = useTranslate();
@@ -39,7 +46,7 @@ function Login() {
         <LocaleSelect />
       </Head>
       <Navigation />
-      <LoginForm onSubmit={callbacks.onLogin} loginMistake={select.loginMistake} t={t} />
+      <LoginForm onSubmit={callbacks.onLogin} mistake={select.mistake} t={t} />
     </PageLayout>
   );
 }

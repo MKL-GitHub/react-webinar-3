@@ -10,9 +10,9 @@ import UserPanelContainer from "../../containers/user-panel-container";
 
 function Profile() {
   const select = useSelector(state => ({
-    username: state.profile.user?.name,
-    userPhone: state.profile.user?.phone,
-    userEmail: state.profile.user?.email,
+    name: state.profile.name,
+    phone: state.profile.phone,
+    email: state.profile.email,
   }));
 
   const { t } = useTranslate();
@@ -24,8 +24,7 @@ function Profile() {
         <LocaleSelect />
       </Head>
       <Navigation />
-      <ProfileCard name={select.username} phone={select.userPhone}
-        email={select.userEmail} t={t} />
+      <ProfileCard name={select.name} phone={select.phone} email={select.email} t={t} />
     </PageLayout>
   );
 }

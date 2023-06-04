@@ -2,7 +2,7 @@ import { memo } from "react";
 import PropTypes from "prop-types";
 import './style.css';
 
-function LoginForm({ onSubmit, loginMistake, t }) {
+function LoginForm({ onSubmit, mistake, t }) {
   const handleOnSubmit = (event) => {
     event.preventDefault();
     onSubmit(event);
@@ -18,7 +18,7 @@ function LoginForm({ onSubmit, loginMistake, t }) {
         <div>{t('form.password')}</div>
         <input type='password' name='password' />
       </label>
-      <div className='LoginForm-mistake'>{loginMistake}</div>
+      <div className='LoginForm-mistake'>{mistake}</div>
       <button type='submit'>{t('submit.login')}</button>
     </form>
   );
@@ -26,7 +26,7 @@ function LoginForm({ onSubmit, loginMistake, t }) {
 
 LoginForm.propTypes = {
   onSubmit: PropTypes.func,
-  loginMistake: PropTypes.string,
+  mistake: PropTypes.string,
   t: PropTypes.func,
 }
 

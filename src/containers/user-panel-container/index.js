@@ -8,8 +8,8 @@ function UserPanelContainer() {
   const store = useStore();
 
   const select = useSelector(state => ({
-    isAuthorized: !!state.profile.token,
-    username: state.profile.user?.name,
+    isAuthorized: !!state.auth.token,
+    username: state.profile.name,
   }));
 
   const callbacks = {
@@ -17,7 +17,8 @@ function UserPanelContainer() {
     onLogout: useCallback(event => {
       if (select.isAuthorized) {
         event.preventDefault();
-        store.actions.profile.logout();
+        store.actions.auth.logout();
+        store.actions.profile.resetState();
       }
     }, [select.isAuthorized]),
   }

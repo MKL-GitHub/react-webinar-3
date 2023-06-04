@@ -7,7 +7,7 @@ function RoutesAccessChecker({ children }) {
   const navigate = useNavigate();
 
   const select = useSelector(state => ({
-    token: state.profile.token,
+    token: state.auth.token,
   }));
 
   useEffect(() => {

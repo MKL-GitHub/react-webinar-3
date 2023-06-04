@@ -17,13 +17,22 @@ function App() {
   const store = useStore();
 
   useInit(() => {
-    select.token && store.actions.profile.loadProfile();
+    select.token && loadProfile();
   }, [], true);
 
   const select = useSelector(state => ({
     activeModal: state.modals.name,
-    token: state.profile.token,
+    token: state.auth.token,
   }));
+
+  async function loadProfile() {
+    const user = await store.actions.auth.loadProfile();
+    store.actions.profile.setProfilePageState({
+      name: user.profile.name,
+      phone: user.profile.phone,
+      email: user.email,
+    });
+  }
 
   return (
     <>
