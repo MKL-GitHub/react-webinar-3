@@ -8,7 +8,7 @@ function UserPanelContainer() {
   const store = useStore();
 
   const select = useSelector(state => ({
-    isAuthorized: state.profile.isAuthorized,
+    isAuthorized: !!state.profile.token,
     username: state.profile.user?.name,
   }));
 

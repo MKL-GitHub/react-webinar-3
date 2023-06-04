@@ -21,7 +21,6 @@ class CatalogState extends StoreModule {
       },
       count: 0,
       waiting: false,
-      categories: [{ _id: 'all', title: 'Все', parent: null }],
     }
   }
 
@@ -88,7 +87,6 @@ class CatalogState extends StoreModule {
       ...(params.category === 'all' ? {} : { 'search[category]': params.category }),
     };
 
-
     const response = await fetch(`/api/v1/articles?${new URLSearchParams(apiParams)}`);
     const json = await response.json();
     this.setState({
@@ -97,25 +95,6 @@ class CatalogState extends StoreModule {
       count: json.result.count,
       waiting: false
     }, 'Загружен список товаров из АПИ');
-  }
-
-  /**
-   * Установка категорий товаров 
-   */
-  async setCategories() {
-    this.setState({
-      ...this.getState(),
-      categories: [{ _id: 'all', title: 'Все', parent: null }],
-    }, 'Устанавливает свойству "categories" значение по умолчанию');
-
-    const response = await fetch('/api/v1/categories?fields=_id,title,parent(_id)&limit=*');
-    const json = await response.json();
-    const categories = json.result.items;
-
-    this.setState({
-      ...this.getState(),
-      categories: [...this.getState().categories, ...categories],
-    }, 'Загрузка категорий товаров из АПИ');
   }
 }
 

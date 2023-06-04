@@ -7,8 +7,7 @@ class ProfileState extends StoreModule {
   initState() {
     return {
       user: null,
-      token: '',
-      isAuthorized: false,
+      token: localStorage.getItem('token'),
       loginMistake: null,
     }
   }
@@ -20,37 +19,35 @@ class ProfileState extends StoreModule {
    */
   async login(login, password) {
     const body = { login, password };
-    const token = localStorage.getItem('token');
+    const response = await fetch(`/api/v1/users/sign`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Token': 'fa57a7348079cd27f06260b99881e6d2b2fee56cff8e212a2cc2e89e0234243'
+      },
+      body: JSON.stringify(body),
+    });
+    const json = await response.json();
 
-    if (token) {
-      this.loadProfile(token);
-    } else {
-      const response = await fetch(`/api/v1/users/sign`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-Token': 'fa57a7348079cd27f06260b99881e6d2b2fee56cff8e212a2cc2e89e0234243'
+    if (response.ok) {
+      this.setMistake(null);
+      this.setState({
+        ...this.getState(),
+        token: json.result.token,
+        user: {
+          ...json.result.user.profile,
+          email: json.result.user.email
         },
-        body: JSON.stringify(body),
-      });
-
-      if (response.ok) {
-        this.setMistake(null);
-        const { result } = await response.json();
-        this.setState({
-          ...this.getState(),
-          isAuthorized: true,
-          token: result.token,
-          user: {
-            ...result.user.profile,
-            email: result.user.email
-          },
-        })
-        localStorage.setItem('token', result.token);
-      } else {
-        this.setMistake(response.statusText);
-      }
+      })
+      localStorage.setItem('token', json.result.token);
+      return true;
     }
+
+    const mistakeText = json.error.data.issues
+      .map(issue => issue.message)
+      .join('\n');
+    this.setMistake(mistakeText);
+    return false;
   }
 
   /**
@@ -65,23 +62,20 @@ class ProfileState extends StoreModule {
       },
     })
     if (response.ok) {
-      this.setState(this.initState());
       localStorage.removeItem('token');
-    } else {
-      this.setMistake(response.statusText);
+      this.setState(this.initState());
     }
   }
 
   /**
    * Загрузка профиля через токен для авторизованного пользователя
-   * @param {String} token Токен
    */
-  async loadProfile(token) {
+  async loadProfile() {
     const response = await fetch(`/api/v1/users/self`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'X-Token': token,
+        'X-Token': this.getState().token,
       },
     });
 
@@ -89,8 +83,6 @@ class ProfileState extends StoreModule {
       const { result } = await response.json();
       this.setState({
         ...this.getState(),
-        isAuthorized: true,
-        token,
         user: {
           ...result.profile,
           email: result.email

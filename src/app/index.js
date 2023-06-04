@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import useSelector from "../hooks/use-selector";
 import Main from "./main";
 import Basket from "./basket";
@@ -7,6 +7,7 @@ import Login from './login';
 import Profile from './profile';
 import useInit from '../hooks/use-init';
 import useStore from '../hooks/use-store';
+import RoutesAccessChecker from '../containers/routes-access-checker';
 
 /**
  * Приложение
@@ -14,28 +15,24 @@ import useStore from '../hooks/use-store';
  */
 function App() {
   const store = useStore();
-  const token = localStorage.getItem('token');
 
   useInit(() => {
-    token && store.actions.profile.loadProfile(token);
+    select.token && store.actions.profile.loadProfile();
   }, [], true);
 
   const select = useSelector(state => ({
     activeModal: state.modals.name,
-    isAuthorized: state.profile.isAuthorized,
+    token: state.profile.token,
   }));
 
   return (
     <>
-      <Routes>
+      <RoutesAccessChecker>
         <Route path={''} element={<Main />} />
         <Route path={'/articles/:id'} element={<Article />} />
         <Route path={'/login'} element={<Login />} />
-        <Route path={'/profile'} element={
-          token || select.isAuthorized
-            ? <Profile />
-            : <Navigate to='/login' />} />
-      </Routes>
+        <Route path={'/profile'} element={<Profile />} />
+      </RoutesAccessChecker>
 
       {select.activeModal === 'basket' && <Basket />}
     </>

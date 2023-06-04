@@ -14,7 +14,8 @@ class Store {
      * modals: ModalsState,
      * article: ArticleState,
      * locale: LocaleState,
-     * account: AccauntState,
+     * profile: AccauntState,
+     * categories: CategoriesState,
      * }} */
     this.actions = {};
     for (const name of Object.keys(modules)) {

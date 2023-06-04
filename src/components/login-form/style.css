@@ -13,6 +13,14 @@
   margin-bottom: 1.25rem;
 }
 
+.LoginForm-input>input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1rem white inset !important;
+  -webkit-text-fill-color: black !important;
+  border: 1px solid #767676;
+  border-radius: 1px;
+  padding: 2px 3px;
+}
+
 .LoginForm-mistake {
   margin-bottom: 1.19rem;
   line-height: 1.125rem;
