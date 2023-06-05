@@ -8,6 +8,8 @@ class AuthState extends StoreModule {
     return {
       token: localStorage.getItem('token'),
       mistake: null,
+      userId: null,
+      username: null,
     }
   }
 
@@ -35,13 +37,34 @@ class AuthState extends StoreModule {
         token: json.result.token,
       })
       localStorage.setItem('token', json.result.token);
-      localStorage.setItem('userId', json.result.user._id);
       return json.result.user;
     }
 
     this.setMistake(json.error.data.issues
       .map(issue => issue.message)
       .join('\n'));
+  }
+
+  /**
+   * Проверка авторизованного профиля
+   */
+  async check() {
+    const response = await fetch(`/api/v1/users/self`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Token': this.getState().token,
+      }
+    });
+
+    if (!response.ok) return;
+
+    const { result } = await response.json();
+    this.setState({
+      ...this.getState(),
+      userId: result._id,
+      username: result.profile.name,
+    });
   }
 
   /**
@@ -57,7 +80,6 @@ class AuthState extends StoreModule {
     })
     if (response.ok) {
       localStorage.removeItem('token');
-      localStorage.removeItem('userId');
       this.setState(this.initState());
     }
   }

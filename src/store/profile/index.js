@@ -6,17 +6,16 @@ import StoreModule from '../module';
 class ProfileState extends StoreModule {
   initState() {
     return {
-      data: {
-        _id: localStorage.getItem('userId'),
-      },
+      data: {},
       waiting: false,
     }
   }
 
   /**
-   * Загрузка профиля через токен для авторизованного пользователя
+   * Загрузка профиля по id через токен для авторизованного пользователя
+   * @param {String} id Идентификатор пользователя
    */
-  async load() {
+  async load(id) {
     // Сброс текущего товара и установка признака ожидания загрузки
     this.setState({
       ...this.initState(),
@@ -24,7 +23,7 @@ class ProfileState extends StoreModule {
     });
 
     try {
-      const response = await fetch(`/api/v1/users/${this.getState().data._id}`, {
+      const response = await fetch(`/api/v1/users/${id}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -38,7 +37,6 @@ class ProfileState extends StoreModule {
           ...this.getState(),
           waiting: false,
           data: {
-            ...this.getState().data,
             name: result.profile.name,
             phone: result.profile.phone,
             email: result.email,
@@ -57,20 +55,6 @@ class ProfileState extends StoreModule {
     this.setState({
       data: {},
       waiting: false
-    });
-  }
-
-  /**
-   * Установка нового состояния профиля
-   * @param {Object} newData Новое состояние 
-   */
-  setProfileData(newData) {
-    this.setState({
-      ...this.getState(),
-      data: {
-        ...this.getState().data,
-        ...newData,
-      }
     });
   }
 }

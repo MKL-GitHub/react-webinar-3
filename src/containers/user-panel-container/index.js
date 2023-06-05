@@ -12,7 +12,7 @@ function UserPanelContainer() {
 
   const select = useSelector(state => ({
     isAuth: !!state.auth.token,
-    username: state.profile.data.name,
+    username: state.auth.username,
   }));
 
   const callbacks = {

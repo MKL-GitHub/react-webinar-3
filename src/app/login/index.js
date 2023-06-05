@@ -16,6 +16,7 @@ function Login() {
 
   useEffect(() => {
     return () => {
+      // Сбрасываем ошибку при переходе на другую страницу
       store.actions.auth.setMistake(null);
     }
   }, []);
@@ -33,13 +34,8 @@ function Login() {
       );
 
       if (user) {
-        window.history.length > 2 && navigate(-1); // Возвращаемся на предыдущую страницу, если авторизация прошла успешно
-        store.actions.profile.setProfileData({
-          _id: user._id,
-          name: user.profile.name,
-          phone: user.profile.phone,
-          email: user.email,
-        });
+        // Возвращаемся на предыдущую страницу, если авторизация прошла успешно
+        window.history.length > 2 && navigate(-1);
       }
     }, [store, select.mistake]),
   }

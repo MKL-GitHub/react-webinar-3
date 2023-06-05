@@ -17,7 +17,8 @@ function App() {
   const store = useStore();
 
   useInit(() => {
-    select.token && store.actions.profile.load();
+    // Проверяем авторизованного пользователя
+    select.token && store.actions.auth.check();
   }, [], true);
 
   const select = useSelector(state => ({
