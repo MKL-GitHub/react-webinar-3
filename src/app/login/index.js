@@ -1,4 +1,4 @@
-import { memo, useCallback } from "react";
+import { memo, useCallback, useEffect } from "react";
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
 import LocaleSelect from "../../containers/locale-select";
@@ -13,6 +13,12 @@ import { useNavigate } from "react-router-dom";
 function Login() {
   const store = useStore();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    return () => {
+      store.actions.auth.setMistake(null);
+    }
+  }, []);
 
   const select = useSelector(state => ({
     mistake: state.auth.mistake,

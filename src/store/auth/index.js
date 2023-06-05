@@ -48,6 +48,7 @@ class AuthState extends StoreModule {
    * Сброс авторизации пользователя
    */
   async logout() {
+    // console.log('in')
     const response = await fetch(`/api/v1/users/sign`, {
       method: 'DELETE',
       headers: {
@@ -55,6 +56,7 @@ class AuthState extends StoreModule {
         'X-Token': this.getState().token,
       },
     })
+    // console.log(response)
     if (response.ok) {
       localStorage.removeItem('token');
       localStorage.removeItem('userId');
