@@ -16,9 +16,9 @@ class ProfileState extends StoreModule {
    * @param {String} id Идентификатор пользователя
    */
   async load(id) {
-    // Сброс текущего товара и установка признака ожидания загрузки
+    // Устанавливаем режим ожидания загрузки
     this.setState({
-      ...this.initState(),
+      ...this.getState(),
       waiting: true
     });
 
@@ -52,10 +52,7 @@ class ProfileState extends StoreModule {
    * Сброс состояния профиля
    */
   resetState() {
-    this.setState({
-      data: {},
-      waiting: false
-    });
+    this.setState(this.initState());
   }
 }
 
