@@ -1,4 +1,4 @@
-import {createContext, useMemo, useState} from "react";
+import { createContext, useMemo, useState } from "react";
 import translate from "./translate";
 
 /**
@@ -11,7 +11,7 @@ export const I18nContext = createContext({});
  * @param children
  * @return {JSX.Element}
  */
-export function I18nProvider({children}) {
+export function I18nProvider({ children }) {
 
   const [lang, setLang] = useState('ru');
 

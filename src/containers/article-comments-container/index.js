@@ -14,6 +14,7 @@ import listToTree from "../../utils/list-to-tree";
 import { getFormatedCommentDate } from "../../utils/get-formatted-comment-date";
 import ArticleComment from "../../components/article-comment";
 import CommentForm from "../../components/comment-form";
+import useTranslate from "../../hooks/use-translate";
 
 function ArticleCommentsContainer() {
   const [comments, setComments] = useState([]);
@@ -22,6 +23,8 @@ function ArticleCommentsContainer() {
 
   const params = useParams();
   const dispatch = useDispatch();
+
+  const { t } = useTranslate();
 
   useInit(() => {
     dispatch(commentsActions.load(params.id));
@@ -70,26 +73,26 @@ function ArticleCommentsContainer() {
   useEffect(() => {
     if (select.isAuth) {
       setForm(targetCommentId
-        ? <CommentForm title={"Новый ответ"} type='reply' onCancel={callbacks.onCancel}
-          onSubmit={callbacks.onSubmit} />
-        : <CommentForm title={"Новый комментарий"} type='comment' onSubmit={callbacks.onSubmit} />)
+        ? <CommentForm title={t('commentForm.newReply')} type='reply' onCancel={callbacks.onCancel}
+          onSubmit={callbacks.onSubmit} t={t} />
+        : <CommentForm title={t('commentForm.newComment')} type='comment' onSubmit={callbacks.onSubmit} t={t} />)
     } else {
       setForm(
         <div className='ArticleComments-login'>
-          <Link to='/login'>Войдите</Link>
+          <Link to='/login'>{t('comments.signIn')}</Link>
           {targetCommentId
             ? <>
-              , чтобы иметь возможность ответить.
+              {`, ${t('comments.toBeAbleToReply')}.`}
               <button className='ArticleComments-cancel' onClick={callbacks.onCancel}>
-                Отмена
+                {t('comments.cancel')}
               </button>
             </>
-            : ', чтобы иметь возможность комментировать'
+            : `, ${t('comments.toBeAbleToComment')}`
           }
         </div>
       )
     }
-  }, [select.isAuth, targetCommentId]);
+  }, [select.isAuth, targetCommentId, t]);
 
   useEffect(() => {
     if (!reduxSelect.users || !reduxSelect.comments) return;
@@ -105,7 +108,7 @@ function ArticleCommentsContainer() {
         <li key={item._id} style={{ marginLeft: `${marginLeft * 1.875}rem` }}>
           <ArticleComment username={username} date={date} text={item.text} isDeleted={item.isDeleted}
             onReply={() => callbacks.onReply(item._id)} form={item._id === targetCommentId ? form : null}
-            isCurrentUser={item.author._id === select.user._id} />
+            isCurrentUser={item.author._id === select.user._id} t={t} />
         </li>
       );
     };
@@ -113,11 +116,11 @@ function ArticleCommentsContainer() {
     const tree = listToTree(reduxSelect.comments, '_id', 'article');
     treeToList(tree, callback);
     setComments(comments);
-  }, [reduxSelect.users, reduxSelect.comments, form]);
+  }, [reduxSelect.users, reduxSelect.comments, form, t]);
 
   return (
     <Spinner active={reduxSelect.waiting}>
-      <ArticleComments items={comments} targetCommentId={targetCommentId} form={form} />
+      <ArticleComments items={comments} targetCommentId={targetCommentId} form={form} t={t} />
     </Spinner>
   );
 }

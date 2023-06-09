@@ -2,12 +2,14 @@ import { memo } from "react";
 import PropTypes from 'prop-types';
 import './style.css';
 
-function ArticleComment({ username, date, text, onReply, form, isDeleted, isCurrentUser }) {
+function ArticleComment({ username, date, text, onReply, form, isDeleted, isCurrentUser, t }) {
   return (
     <div className={'ArticleComment' + (isCurrentUser ? ' ArticleComment_isCurrentUser' : '')}>
       {isDeleted
         ? <div className='ArticleComment-userInfo'>
-          <span className='ArticleComment-commentDeleted'>{'Комментарий был удален'}</span>
+          <span className='ArticleComment-commentDeleted'>
+            {t('comment.commentWasDeleted')}
+          </span>
           <span className='ArticleComment-date'>{date}</span>
         </div>
         : <>
@@ -21,7 +23,7 @@ function ArticleComment({ username, date, text, onReply, form, isDeleted, isCurr
             {text}
           </div>
           <button className='ArticleComment-reply' onClick={onReply}>
-            Ответить
+            {t('comment.reply')}
           </button>
           {form}
         </>
