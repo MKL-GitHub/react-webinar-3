@@ -1,0 +1,44 @@
+.ArticleComment {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 0.625rem;
+}
+
+.ArticleComment-userInfo {
+  display: flex;
+  gap: 0.625rem;
+  font-size: 0.75rem;
+  line-height: 0.875rem;
+}
+
+.ArticleComment-username {
+  font-weight: 700;
+}
+
+.ArticleComment_isCurrentUser .ArticleComment-username {
+  color: #666666;
+}
+
+.ArticleComment-commentDeleted {
+  color: #666666;
+}
+
+.ArticleComment-date {
+  color: #666666;
+}
+
+.ArticleComment-text {
+  font-size: 0.875rem;
+  line-height: 1rem;
+}
+
+.ArticleComment-reply {
+  border: none;
+  padding: 0;
+  background-color: transparent;
+  color: #0087E9;
+  font-size: 0.75rem;
+  line-height: 0.875rem;
+  cursor: pointer;
+}

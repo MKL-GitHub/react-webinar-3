@@ -4,7 +4,7 @@
  * @param [key] {String} Свойство с первичным ключом
  * @returns {Array} Корневые узлы
  */
-export default function listToTree(list, key = '_id') {
+export default function listToTree(list, key = '_id', parentType) {
   let trees = {};
   let roots = {};
   for (const item of list) {
@@ -18,6 +18,9 @@ export default function listToTree(list, key = '_id') {
     } else {
       trees[item[key]] = Object.assign(trees[item[key]], item);
     }
+
+    // Условие корневого элемента с другим типом родителя
+    if (parentType && item.parent?._type === parentType) continue;
 
     // Если элемент имеет родителя, то добавляем его в подчиненные родителя
     if (item.parent?._id) {

@@ -1,0 +1,33 @@
+.CommentForm {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  width: 100%;
+}
+
+.CommentForm-title {
+  font-weight: 700;
+  font-size: 0.75rem;
+  line-height: 0.875rem;
+}
+
+.CommentForm-textarea {
+  resize: none;
+  border-radius: 0;
+  height: 5rem;
+}
+
+.CommentForm-buttons {
+  display: flex;
+  gap: 0.625rem;
+}
+
+.CommentForm-submit {
+  height: 1.313rem;
+  width: 5.652rem;
+}
+
+.CommentForm-cancel {
+  height: 1.313rem;
+  width: 4.188rem;
+}

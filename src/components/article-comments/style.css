@@ -1,0 +1,41 @@
+.ArticleComments {
+  padding: 1.875rem 1.25rem;
+}
+
+.ArticleComments-commentsQuantity {
+  font-size: 1.5rem;
+  line-height: 1.75rem;
+  margin-bottom: 1.875rem;
+}
+
+.ArticleComments-comments {
+  display: flex;
+  flex-direction: column;
+  gap: 1.875rem;
+  list-style-type: none;
+  padding: 0;
+  margin-top: -5px;
+  margin-bottom: 1.875rem;
+}
+
+.ArticleComments-comments>li {}
+
+.ArticleComments-comments>li[data-depth='1'] {
+  margin-left: 30px;
+}
+
+.ArticleComments-login {}
+
+.ArticleComments-login>a {
+  color: #0087E9;
+}
+
+.ArticleComments-cancel {
+  background-color: transparent;
+  border: none;
+  text-decoration: underline;
+  font-size: 1rem;
+  line-height: 1.125rem;
+  color: #666666;
+  cursor: pointer;
+}
