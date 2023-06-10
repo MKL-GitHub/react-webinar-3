@@ -1,3 +1,9 @@
+/**
+ * Получение даты в необходимом для комментария формате
+ * @param {String} dateStr Дата в виде строки
+ * @param {String} lang Локализация
+ * @returns {String} Отформатированная дата
+ */
 export function getFormatedCommentDate(dateStr, lang = 'ru-RU') {
   const date = new Date(dateStr);
   const formattedDate = date.toLocaleDateString(lang,

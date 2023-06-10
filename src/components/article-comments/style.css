@@ -1,5 +1,5 @@
 .ArticleComments {
-  padding: 1.875rem 1.25rem;
+  padding: 1.875rem 2.5rem;
 }
 
 .ArticleComments-commentsQuantity {
@@ -38,4 +38,10 @@
   line-height: 1.125rem;
   color: #666666;
   cursor: pointer;
+}
+
+.ArticleComments-commentForm {}
+
+.ArticleComments-replyForm {
+  margin-top: 1.875rem;
 }

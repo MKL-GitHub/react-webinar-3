@@ -23,6 +23,11 @@ export default {
     }
   },
 
+  /**
+   * Добавление нового комментария
+   * @param {Object} item Объект комментария
+   * @returns {}
+   */
   add: (item) => {
     return {
       type: 'article-comments/add',

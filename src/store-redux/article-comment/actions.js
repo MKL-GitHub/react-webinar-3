@@ -19,5 +19,13 @@ export default {
         dispatch({ type: 'article-comment/post-error' });
       }
     }
-  }
+  },
+
+  /**
+   * Сброс состояния комментария
+   * @returns {Object}
+   */
+  reset: () => {
+    return { type: 'article-comment/reset' };
+  },
 }

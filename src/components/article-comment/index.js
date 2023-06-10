@@ -2,7 +2,7 @@ import { memo } from "react";
 import PropTypes from 'prop-types';
 import './style.css';
 
-function ArticleComment({ username, date, text, onReply, form, isDeleted, isCurrentUser, t }) {
+function ArticleComment({ username, date, text, onReply, isDeleted, isCurrentUser, t }) {
   return (
     <div className={'ArticleComment' + (isCurrentUser ? ' ArticleComment_isCurrentUser' : '')}>
       {isDeleted
@@ -25,7 +25,6 @@ function ArticleComment({ username, date, text, onReply, form, isDeleted, isCurr
           <button className='ArticleComment-reply' onClick={onReply}>
             {t('comment.reply')}
           </button>
-          {form}
         </>
       }
     </div>
@@ -37,13 +36,14 @@ ArticleComment.propTypes = {
   date: PropTypes.string,
   text: PropTypes.string,
   onReply: PropTypes.func,
-  form: PropTypes.node,
   isDeleted: PropTypes.bool,
   isCurrentUser: PropTypes.bool,
+  t: PropTypes.func,
 };
 
 ArticleComment.defaultProps = {
   onReply: () => { },
+  t: () => { },
 };
 
 export default memo(ArticleComment);

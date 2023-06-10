@@ -11,7 +11,9 @@ function ArticleComments({ items, targetCommentId, form, t }) {
       <ul className='ArticleComments-comments'>
         {items}
       </ul>
-      {!targetCommentId && form}
+      {!targetCommentId &&
+        <div className='ArticleComments-commentForm'>{form}</div>
+      }
     </div>
   );
 }

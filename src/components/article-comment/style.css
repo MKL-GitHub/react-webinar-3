@@ -31,6 +31,8 @@
 .ArticleComment-text {
   font-size: 0.875rem;
   line-height: 1rem;
+  width: 100%;
+  word-wrap: break-word;
 }
 
 .ArticleComment-reply {
@@ -41,4 +43,9 @@
   font-size: 0.75rem;
   line-height: 0.875rem;
   cursor: pointer;
+}
+
+.ArticleComment-form {
+  width: 100%;
+  margin-top: 1rem;
 }

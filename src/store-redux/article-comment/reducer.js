@@ -12,6 +12,9 @@ function reducer(state = initialState, action) {
     case "article-comment/post-error":
       return state; //@todo текст ошибки сохранить?
 
+    case "article-comment/reset":
+      return initialState;
+
     default:
       // Нет изменений
       return state;
