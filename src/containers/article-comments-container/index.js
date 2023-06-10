@@ -50,14 +50,11 @@ function ArticleCommentsContainer() {
       event.preventDefault();
       const text = event.target.elements.text.value;
 
-      if (text.trim().length) {
-        const parent = {
-          _id: targetCommentId ? targetCommentId : params.id,
-          _type: targetCommentId ? 'comment' : 'article',
-        }
-        dispatch(commentActions.send({ text, parent }));
+      const parent = {
+        _id: targetCommentId ? targetCommentId : params.id,
+        _type: targetCommentId ? 'comment' : 'article',
       }
-
+      dispatch(commentActions.send({ text, parent }));
       setTargetCommentId(null);
     }, [targetCommentId]),
 
