@@ -12,7 +12,7 @@ import LocaleSelect from "../../containers/locale-select";
 import TopHead from "../../containers/top-head";
 import { useDispatch, useSelector as useSelectorRedux } from 'react-redux';
 import shallowequal from "shallowequal";
-import articleActions from '../../store-redux/article/actions';
+import articleActions from '../../services/store-redux/article/actions';
 import ArticleCommentsContainer from '../../containers/article-comments-container';
 
 function Article() {
@@ -23,13 +23,12 @@ function Article() {
 
   useInit(() => {
     dispatch(articleActions.load(params.id));
-  }, [params.id]);
+  }, [params.id, store.state.locale.lang]);
 
   const select = useSelectorRedux(state => ({
     article: state.article.data,
     waiting: state.article.waiting,
   }), shallowequal); // Нужно указать функцию для сравнения свойства объекта, так как хуком вернули объект
-
 
   const { t } = useTranslate();
 

@@ -11,5 +11,5 @@ export function getFormatedCommentDate(dateStr, lang = 'ru-RU') {
   const formattedTime = date.toLocaleTimeString(lang,
     { hour: '2-digit', minute: '2-digit' });
 
-  return `${formattedDate} в ${formattedTime}`;
+  return `${formattedDate} ${lang === 'ru-RU' ? 'в' : 'at'} ${formattedTime}`;
 }

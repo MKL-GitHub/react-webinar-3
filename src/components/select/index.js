@@ -1,4 +1,4 @@
-import {memo} from "react";
+import { memo } from "react";
 import PropTypes from 'prop-types';
 import './style.css';
 
@@ -27,7 +27,7 @@ Select.propTypes = {
 };
 
 Select.defaultProps = {
-  onChange: () => {}
+  onChange: () => { }
 }
 
 export default memo(Select);

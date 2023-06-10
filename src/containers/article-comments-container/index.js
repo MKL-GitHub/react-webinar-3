@@ -6,9 +6,9 @@ import shallowEqual from "shallowequal";
 import useSelector from "../../hooks/use-selector";
 import { useDispatch, useSelector as useSelectorRedux } from "react-redux";
 import { Link, useParams } from "react-router-dom";
-import commentsActions from '../../store-redux/article-comments/actions';
-import commentActions from '../../store-redux/article-comment/actions';
-import usersActions from '../../store-redux/users/actions';
+import commentsActions from '../../services/store-redux/article-comments/actions';
+import commentActions from '../../services/store-redux/article-comment/actions';
+import usersActions from '../../services/store-redux/users/actions';
 import treeToList from "../../utils/tree-to-list";
 import listToTree from "../../utils/list-to-tree";
 import { getFormatedCommentDate } from "../../utils/get-formatted-comment-date";
@@ -26,6 +26,7 @@ function ArticleCommentsContainer() {
   const formRef = useRef();
   const params = useParams();
   const dispatch = useDispatch();
+
   const { t } = useTranslate();
 
   useInit(() => {
@@ -36,6 +37,7 @@ function ArticleCommentsContainer() {
   const select = useSelector(state => ({
     isAuth: state.session.exists,
     user: state.session.user,
+    lang: state.locale.lang,
   }), shallowEqual);
 
   const reduxSelect = useSelectorRedux(state => ({
@@ -113,7 +115,7 @@ function ArticleCommentsContainer() {
       // Устанавливаем максимальный отступ слева
       const marginLeft = level <= 10 ? level : 10;
       const username = reduxSelect.users.find(user => user._id === item.author._id)?.profile.name;
-      const date = getFormatedCommentDate(item.dateCreate);
+      const date = getFormatedCommentDate(item.dateCreate, select.lang === 'ru' ? 'ru-RU' : 'en-EN');
 
       if (targetCommentId === item._id) {
         formInfo = {

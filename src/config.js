@@ -17,7 +17,8 @@ const config = {
   },
   api: {
     baseUrl: ''
-  }
+  },
+  i18n: {},
 }
 
 export default config;
