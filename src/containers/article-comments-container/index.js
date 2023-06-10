@@ -73,11 +73,13 @@ function ArticleCommentsContainer() {
 
   useEffect(() => {
     if (!reduxSelect.comment) return;
+    // Когда появляется новый комментарий добавляем его к существующим и сбрасываем в store
     dispatch(commentsActions.add(reduxSelect.comment));
     dispatch(commentActions.reset());
   }, [reduxSelect.comment]);
 
   useEffect(() => {
+    // Опраделяем тип формы или сообщения о входе
     if (select.isAuth) {
       setForm(targetCommentId
         ? <CommentForm title={t('commentForm.newReply')} type='reply' onCancel={callbacks.onCancel}
@@ -146,6 +148,7 @@ function ArticleCommentsContainer() {
   }, [reduxSelect.users, reduxSelect.comments, form, t]);
 
   useEffect(() => {
+    // Прокручиваем экран к месту формы или сообщения
     if (isSrcolling) {
       setIsSrcolling(false);
       formRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
