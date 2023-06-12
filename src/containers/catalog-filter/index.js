@@ -9,15 +9,14 @@ import treeToList from "../../utils/tree-to-list";
 import listToTree from "../../utils/list-to-tree";
 
 function CatalogFilter() {
-
   const store = useStore();
+  const { t, lang } = useTranslate();
 
   const select = useSelector(state => ({
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
     category: state.catalog.params.category,
     categories: state.categories.list,
-    lang: state.locale.lang,
   }));
 
   const callbacks = {
@@ -39,14 +38,12 @@ function CatalogFilter() {
       { value: 'edition', title: 'Древние' },
     ]), []),
     categories: useMemo(() => ([
-      { value: '', title: (select.lang === 'ru' ? 'Все' : 'All') },
+      { value: '', title: (lang === 'ru' ? 'Все' : 'All') },
       ...treeToList(listToTree(select.categories), (item, level) => (
         { value: item._id, title: '- '.repeat(level) + item.title }
       ))
     ]), [select.categories]),
   };
-
-  const { t } = useTranslate();
 
   return (
     <SideLayout padding='medium'>

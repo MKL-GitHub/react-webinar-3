@@ -27,7 +27,7 @@ function ArticleCommentsContainer() {
   const params = useParams();
   const dispatch = useDispatch();
 
-  const { t } = useTranslate();
+  const { t, lang } = useTranslate();
 
   useInit(() => {
     dispatch(commentsActions.load(params.id));
@@ -37,7 +37,6 @@ function ArticleCommentsContainer() {
   const select = useSelector(state => ({
     isAuth: state.session.exists,
     user: state.session.user,
-    lang: state.locale.lang,
   }), shallowEqual);
 
   const reduxSelect = useSelectorRedux(state => ({
@@ -115,7 +114,7 @@ function ArticleCommentsContainer() {
       // Устанавливаем максимальный отступ слева
       const marginLeft = level <= 10 ? level : 10;
       const username = reduxSelect.users.find(user => user._id === item.author._id)?.profile.name;
-      const date = getFormatedCommentDate(item.dateCreate, select.lang === 'ru' ? 'ru-RU' : 'en-EN');
+      const date = getFormatedCommentDate(item.dateCreate, lang === 'ru' ? 'ru-RU' : 'en-EN');
 
       if (targetCommentId === item._id) {
         formInfo = {

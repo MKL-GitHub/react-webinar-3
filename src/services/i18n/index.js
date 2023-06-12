@@ -1,10 +1,24 @@
+import ObservableState from '../../utils/observable-state';
 import * as translations from './translations';
 
-class I18n {
-  constructor(services, config = {}) {
+class I18n extends ObservableState {
+  constructor(services, config = {}, initState) {
+    super(initState);
     this.services = services;
     this.config = config;
+    this.state = { ...this.getState(), lang: 'ru' };
   }
+
+  /**
+   * Установка языка сессии
+   * @param {String} lang Язык сессии
+   */
+  setLang(lang) {
+    this.setState({
+      ...this.getState(), lang
+    });
+  }
+
   /**
    * Перевод фразу по словарю
    * @param text {String} Текст для перевода

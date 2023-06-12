@@ -12,15 +12,14 @@ import TopHead from "../../containers/top-head";
 
 function Main() {
   const store = useStore();
+  const { t, lang } = useTranslate();
 
   useInit(async () => {
     await Promise.all([
       store.actions.catalog.initParams(),
       store.actions.categories.load(),
     ]);
-  }, [store.state.locale.lang], true);
-
-  const { t } = useTranslate();
+  }, [lang], true);
 
   return (
     <PageLayout>

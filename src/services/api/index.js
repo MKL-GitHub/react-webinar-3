@@ -1,3 +1,5 @@
+import useTranslate from "../../hooks/use-translate";
+
 class APIService {
 
   /**
@@ -24,7 +26,11 @@ class APIService {
     if (!url.match(/^(http|\/\/)/)) url = this.config.baseUrl + url;
     const res = await fetch(url, {
       method,
-      headers: { ...this.defaultHeaders, ...headers, 'X-Lang': this.services.store.state.locale.lang, },
+      headers: {
+        ...this.defaultHeaders,
+        ...headers,
+        'X-Lang': this.services.i18n.getState().lang,
+      },
       ...options,
     });
     return { data: await res.json(), status: res.status, headers: res.headers };

@@ -18,7 +18,9 @@ const config = {
   api: {
     baseUrl: ''
   },
-  i18n: {},
+  i18n: {
+    log: !isProduction,
+  },
 }
 
 export default config;

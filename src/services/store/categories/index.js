@@ -1,6 +1,5 @@
 import StoreModule from "../module";
 
-
 /**
  * Список категорий
  */
@@ -27,7 +26,6 @@ class CategoriesState extends StoreModule {
       url: `/api/v1/categories?fields=_id,title,parent(_id)&limit=*`,
     });
 
-    console.log(res.data.result.items)
     // Товар загружен успешно
     this.setState({
       ...this.getState(),
